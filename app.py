@@ -1,8 +1,8 @@
 import streamlit as st
 import openai
 
-# Set up API key
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Set up OpenAI client (new format for v1.0+)
+client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.title("Real Estate Email Generator")
 
@@ -25,9 +25,11 @@ if st.button("Generate Email"):
 """
 
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",  # use GPT-4 if your account has access
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
         email = response.choices[0].message.content
         st.subheader("Generated Email:")
