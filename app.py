@@ -25,8 +25,7 @@ authenticator = stauth.Authenticate(
 )
 
 # ⬇️ Must be inside a Streamlit container (like main panel)
-with st.container():
-    name, authentication_status, username = authenticator.login("Login", "main")
+name, authentication_status, username = authenticator.login("Login", location="main")
 
 if authentication_status == False:
     st.error("Username or password is incorrect")
