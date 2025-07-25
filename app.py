@@ -18,23 +18,22 @@ credentials = {
 }
 
 authenticator = stauth.Authenticate(
-    credentials,
-    cookie_name="realestate_email_tool",  # ✅ Unique cookie name
-    key="abc123",                          # ✅ Unique key (random string)
+    credentials=credentials,
+    cookie_name="realestate_email_tool",
+    key="abc123",
     cookie_expiry_days=1
 )
 
-# ⬇️ Must be inside a Streamlit container (like main panel)
 name, authentication_status, username = authenticator.login("Login", location="main")
 
-if authentication_status == False:
+if authentication_status is False:
     st.error("Username or password is incorrect")
 
-elif authentication_status == None:
+elif authentication_status is None:
     st.warning("Please enter your username and password")
 
 elif authentication_status:
-    authenticator.logout("Logout", "sidebar")
+    authenticator.logout("Logout", location="sidebar")
     st.sidebar.success(f"Welcome, {name} 👋")
 
     # ✅ Your tool starts here
