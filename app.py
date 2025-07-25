@@ -14,16 +14,20 @@ tone = st.selectbox("Tone", ["Professional", "Friendly", "Luxury", "Casual"])
 
 if st.button("Generate Email"):
     prompt = f"""Write a {tone.lower()} real estate email for the following:
-    - Type: {property_type}
-    - Location: {location}
-    - Price: {price}
-    - Features: {features}
-    - Purpose: {purpose}
-    """
+- Type: {property_type}
+- Location: {location}
+- Price: {price}
+- Features: {features}
+- Purpose: {purpose}
+"""
 
-    response = openai.ChatCompletion.create(
+    client = openai.OpenAI()  # This is the NEW way to call the API
+
+    response = client.chat.completions.create(
         model="gpt-4",
-        messages=[{"role": "user", "content": prompt}]
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
     )
 
     st.subheader("Generated Email:")
