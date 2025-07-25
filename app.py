@@ -1,4 +1,35 @@
-import streamlit as st
+import streamlit as stimport streamlit as st
+import streamlit_authenticator as stauth
+
+# --- LOGIN SETUP ---
+
+# Hashed password for 'abc123'
+hashed_passwords = stauth.Hasher(['abc123']).generate()
+
+credentials = {
+    "usernames": {
+        "demo_user": {
+            "name": "Demo User",
+            "password": hashed_passwords[0]
+        }
+    }
+}
+
+authenticator = stauth.Authenticate(credentials, "my_app", "abcdef", cookie_expiry_days=1)
+
+name, authentication_status, username = authenticator.login("Login", "main")
+
+if authentication_status == False:
+    st.error("Username or password is incorrect")
+
+if authentication_status == None:
+    st.warning("Please enter your username and password")
+
+if authentication_status:
+    authenticator.logout("Logout", "sidebar")
+    st.sidebar.write(f"Welcome, {name} 👋")
+
+    # 🧠 Your real estate email generator starts below this line
 import openai
 
 # Set up OpenAI client (new format for v1.0+)
