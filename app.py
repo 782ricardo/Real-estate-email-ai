@@ -3,8 +3,10 @@ import streamlit_authenticator as stauth
 
 # --- LOGIN SETUP ---
 
-# Hashed password for 'abc123'
-hashed_passwords = ['pbkdf2:sha256:600000$2VoZGbLpZYIBGFZf$354a6bcb5a0bc71d2c8d55286d221ca8ed8e63f3e1b196c27cc8db9f5bdf9a49']
+# Hashed password for abc123
+hashed_passwords = [
+    'pbkdf2:sha256:600000$2VoZGbLpZYIBGFZf$354a6bcb5a0bc71d2c8d55286d221ca8ed8e63f3e1b196c27cc8db9f5bdf9a49'
+]
 
 credentials = {
     "usernames": {
@@ -15,19 +17,28 @@ credentials = {
     }
 }
 
-authenticator = stauth.Authenticate(credentials, "my_app", "abcdef", cookie_expiry_days=1)
+authenticator = stauth.Authenticate(
+    credentials,
+    cookie_name="realestate_email_tool",  # ✅ Unique cookie name
+    key="abc123",                          # ✅ Unique key (random string)
+    cookie_expiry_days=1
+)
 
-name, authentication_status, username = authenticator.login("Login", "main")
+# ⬇️ Must be inside a Streamlit container (like main panel)
+with st.container():
+    name, authentication_status, username = authenticator.login("Login", "main")
 
 if authentication_status == False:
     st.error("Username or password is incorrect")
 
-if authentication_status == None:
+elif authentication_status == None:
     st.warning("Please enter your username and password")
 
-if authentication_status:
+elif authentication_status:
     authenticator.logout("Logout", "sidebar")
-    st.sidebar.write(f"Welcome, {name} 👋")
+    st.sidebar.success(f"Welcome, {name} 👋")
+
+    # ✅ Your tool starts here
 
     # 🧠 Your real estate email generator starts below this line
 import openai
