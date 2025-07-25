@@ -4,7 +4,7 @@ import streamlit_authenticator as stauth
 # --- LOGIN SETUP ---
 
 # Hashed password for 'abc123'
-hashed_passwords = stauth.Hasher(['abc123']).generate()
+hashed_passwords = ['pbkdf2:sha256:600000$2VoZGbLpZYIBGFZf$354a6bcb5a0bc71d2c8d55286d221ca8ed8e63f3e1b196c27cc8db9f5bdf9a49']
 
 credentials = {
     "usernames": {
