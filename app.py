@@ -26,14 +26,12 @@ if st.button("Generate Email"):
 
     try:
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # fallback model if GPT-4 isn't available
+            model="gpt-3.5-turbo",  # safer fallback
             messages=[{"role": "user", "content": prompt}]
         )
         email = response.choices[0].message.content
         st.subheader("Generated Email:")
         st.write(email)
 
-    except openai.error.InvalidRequestError as e:
-        st.error("There was a problem with your OpenAI request.")
     except Exception as e:
         st.error(f"Something went wrong: {e}")
