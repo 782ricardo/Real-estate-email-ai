@@ -40,7 +40,7 @@ elif authentication_status:
 import openai
 
 # Set up OpenAI client (new format for v1.0+)
-client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 
 st.title("Real Estate Email Generator")
 
