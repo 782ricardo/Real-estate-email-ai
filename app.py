@@ -38,7 +38,7 @@ if authentication_status is False:
 elif authentication_status is None:
     st.warning("Please enter your username and password.")
 elif authentication_status:
-    authenticator.logout("Logout", location="main")
+    authenticator.logout("Logout")
     st.sidebar.success(f"Welcome, {name}! 👋")
 
     # ✅ Your tool starts here
