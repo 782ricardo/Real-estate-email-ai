@@ -64,6 +64,7 @@ if st.button("Generate Email"):
  if not location:
     st.error("Please enter a location.")
     st.stop()  
+     
      prompt = f"""Write a {tone.lower()} real estate email for the following:
 - Type: {property_type}
 - Location: {location}
