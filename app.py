@@ -65,13 +65,13 @@ if st.button("Generate Email"):
     st.error("Please enter a location.")
     st.stop()  
     
-prompt = f"""Write a {tone.lower()} real estate email for the following:
-- Type: {property_type}
-- Location: {location}
-- Price: {price}
-- Features: {features}
-- Purpose: {purpose}
-"""
+             prompt = f"""Write a {tone.lower()} real estate email for the following:
+             - Type: {property_type}
+             - Location: {location}
+             - Price: {price}
+             - Features: {features}
+             - Purpose: {purpose}
+             """
 
     try:
         response = client.chat.completions.create(
