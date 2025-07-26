@@ -61,7 +61,10 @@ tone = st.selectbox("Tone", ["Professional", "Friendly", "Luxury", "Casual"])
 
 # Generate button
 if st.button("Generate Email"):
-    prompt = f"""Write a {tone.lower()} real estate email for the following:
+ if not location:
+    st.error("Please enter a location.")
+    st.stop()  
+     prompt = f"""Write a {tone.lower()} real estate email for the following:
 - Type: {property_type}
 - Location: {location}
 - Price: {price}
