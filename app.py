@@ -24,7 +24,22 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=1
 )
 
-name, authentication_status = authenticator.login("Login", location="main")
+name, authentication_status, username = authenticator.login("Login", "main")
+
+# 🚫 Step 1: Check for banned users
+banned_users = ["badguy@email.com", "testuser"]  # <-- Add your banned usernames here
+if username in banned_users:
+    st.error("Access denied. Please contact support.")
+    st.stop()  # This stops the app from running further
+
+# ✅ Step 2: Continue with login checks
+if authentication_status is False:
+    st.error("Username or password is incorrect.")
+elif authentication_status is None:
+    st.warning("Please enter your username and password.")
+elif authentication_status:
+    authenticator.logout("Logout", location="sidebar")
+    st.sidebar.success(f"Welcome, {name}!")
 
 if authentication_status is False:
     st.error("Username or password is incorrect")
