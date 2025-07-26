@@ -27,21 +27,19 @@ authenticator = stauth.Authenticate(
 name, authentication_status, username = authenticator.login("Login", "main")
 
 # 🚫 Step 1: Check for banned users
-banned_users = ["badguy@email.com", "testuser"]  # <-- Add your banned usernames here
+banned_users = ["badguy@email.com", "testuser"]
 if username in banned_users:
     st.error("Access denied. Please contact support.")
-    st.stop()  # This stops the app from running further
+    st.stop()
 
-# ✅ Step 2: Continue with login checks
+# ✅ Step 2: Handle login status
 if authentication_status is False:
     st.error("Username or password is incorrect.")
 elif authentication_status is None:
     st.warning("Please enter your username and password.")
 elif authentication_status:
-authenticator.logout("Logout", location="main")
-    st.sidebar.success(f"Welcome, {name}!")
-
-
+    authenticator.logout("Logout", location="main")
+    st.sidebar.success(f"Welcome, {name}! 👋")
 
     # ✅ Your tool starts here
 
